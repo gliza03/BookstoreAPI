@@ -68,8 +68,3 @@ public IActionResult Get(
 - Implement advanced filtering
 - Enhance error handling
 - Create more detailed book views
-
-## Contact
-[Your Name]
-- LinkedIn: [Your LinkedIn Profile]
-- Email: [Your Professional Email]
