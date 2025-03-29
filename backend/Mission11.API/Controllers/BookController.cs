@@ -15,10 +15,7 @@ namespace Mission11.API.Controllers
         [HttpGet("AllBooks")]
         public IActionResult Get(int pageSize, int pageNumber = 1, string sortBy = "title", string sortDirection = "asc")
         {
-            // Start with the base query
             var query = _context.Books.AsQueryable();
-
-            // Apply sorting based on parameters
             query = sortBy.ToLower() switch
             {
                 "title" => sortDirection.ToLower() == "asc"
