@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Book } from "./types/Book";
 
-function Books() {
+function Books({selectedCategories}: {selectedCategories: string[]}) {
     const [books, setBooks] = useState<Book[]>([]);
     const [pageSize, setPageSize] = useState<number>(5);
     const [pageNumber, setPageNumber] = useState<number>(1);
@@ -11,9 +11,13 @@ function Books() {
     const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
 
     useEffect(() => {
+
         const fetchBooks = async () => {
+
+            const categoryParams = selectedCategories.map((cat) => `category=${encodeURIComponent(cat)}`).join("&");
+
             // Add sort parameters to the API request
-            const url = `http://localhost:5196/api/Book/AllBooks?pageSize=${pageSize}&pageNumber=${pageNumber}&sortBy=${sortField}&sortDirection=${sortDirection}`;
+            const url = `http://localhost:5196/api/Book/AllBooks?pageSize=${pageSize}&pageNumber=${pageNumber}&sortBy=${sortField}&sortDirection=${sortDirection}${selectedCategories.length ? `&${categoryParams}` : ""}`;
             
             try {
                 const response = await fetch(url);
@@ -29,7 +33,7 @@ function Books() {
             }
         };
         fetchBooks();
-    }, [pageSize, pageNumber, sortField, sortDirection]);
+    }, [pageSize, pageNumber, sortField, sortDirection, selectedCategories]);
     
     const handlePrevious = () => {
         if (pageNumber > 1) {
@@ -66,8 +70,6 @@ function Books() {
 
     return (
         <>
-            <h1>Books</h1>
-            
             {/* Sorting controls */}
             <div className="sorting-controls">
                 <span>Sort by: </span>

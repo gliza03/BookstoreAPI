@@ -13,9 +13,16 @@ namespace Mission11.API.Controllers
         public BookController(BookDbContext context) => _context = context;
 
         [HttpGet("AllBooks")]
-        public IActionResult Get(int pageSize, int pageNumber = 1, string sortBy = "title", string sortDirection = "asc")
+        public IActionResult Get(int pageSize, int pageNumber = 1, string sortBy = "title", string sortDirection = "asc", [FromQuery] List<string> category = null)
         {
+
             var query = _context.Books.AsQueryable();
+
+            if (category != null && category.Any())
+            {
+                query = query.Where(p => category.Contains(p.Category));
+            }
+
             query = sortBy.ToLower() switch
             {
                 "title" => sortDirection.ToLower() == "asc"
@@ -47,5 +54,16 @@ namespace Mission11.API.Controllers
 
             return Ok(new { bookResults, totalBooks });
         }
+
+        [HttpGet("GetBookCategories")]
+        public IActionResult GetBookCategories()
+        {
+            var categories = _context.Books
+                .Select(b => b.Category)
+                .Distinct()
+                .ToList();
+            return Ok(categories);
+        }
+
     }
 }
