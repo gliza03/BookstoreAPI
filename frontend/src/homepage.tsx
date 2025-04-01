@@ -5,7 +5,6 @@ import CategoryFilter from './CategoryFilter';
 import CartSummary from './cartSummary';
 
 function App() {
-    const [count, setCount] = useState(0);
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   
   
