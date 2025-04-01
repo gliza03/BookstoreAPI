@@ -1,31 +1,27 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import Books from './Books'
-import CategoryFilter from './CategoryFilter'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Homepage from './homepage'
+import CartPage from './cartPage';
+import { CartProvider } from './context/CartContext';
 
 function App() {
   const [count, setCount] = useState(0);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
-
   return (
     <>
-    <h1>Amaze Books!</h1>
-    <div className="row">
-      <h1>Amaze Books!</h1>
-    </div>
-    <div className="container">
-      <div className="row">
-        <div className="col-md-3">
-          <CategoryFilter selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories} />
-        </div>
-        <div className="col-md-9">
-          <Books selectedCategories={selectedCategories} />
-        </div>
-      </div>
-    </div>
+      <CartProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Homepage/>} />
+            <Route path="/books" element={<Books selectedCategories={selectedCategories} />} />
+            <Route path="/cart" element={<CartPage />} />
+          </Routes>
+        </Router>
+      </CartProvider>
+      
     </>
   )
 }

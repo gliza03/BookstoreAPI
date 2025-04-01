@@ -1,14 +1,32 @@
 import { useEffect, useState } from "react";
 import { Book } from "./types/Book";
+import { useNavigate, useParams } from "react-router-dom";
+import { useCart } from "./context/CartContext";
+import { CartItem } from "./types/CartItem";
 
 function Books({selectedCategories}: {selectedCategories: string[]}) {
+    const navigate = useNavigate();
     const [books, setBooks] = useState<Book[]>([]);
     const [pageSize, setPageSize] = useState<number>(5);
     const [pageNumber, setPageNumber] = useState<number>(1);
-    const [totalBooks, setTotalBooks] = useState<number>(0);
+    const [, setTotalBooks] = useState<number>(0); // Remove unused 'totalBooks'
     const [totalPages, setTotalPages] = useState<number>(0);
     const [sortField, setSortField] = useState<string>("title");
     const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
+
+    const {addItem} = useCart();
+    const { bookID } = useParams<{ bookID: string }>(); // Correctly destructure 'useParams'
+    
+    const handleAddToCart = (book: Book) => {
+        const newItem: CartItem = {
+            bookID: book.bookID,
+            title: book.title,
+            author: book.author,
+            price: book.price,
+        };
+        addItem(newItem);
+        navigate("/cart");
+    };
 
     useEffect(() => {
 
@@ -108,6 +126,8 @@ function Books({selectedCategories}: {selectedCategories: string[]}) {
                             <li><strong>Price:</strong> {book.price}</li>
                         </ul>
                     </div>
+                    <button className='btn btn-success' onClick={() => handleAddToCart(book)}>Add to Cart</button>
+                    <button className='btn btn-success' onClick={() => navigate('/cart')}>View Cart</button>
                 </div>
             ))}
 
@@ -126,6 +146,8 @@ function Books({selectedCategories}: {selectedCategories: string[]}) {
                 ))
             }
             <button onClick={handleNext} disabled={pageNumber >= totalPages}>Next</button>
+            <br />
+
 
             <br />
 

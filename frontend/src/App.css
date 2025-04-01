@@ -40,3 +40,27 @@
 .read-the-docs {
   color: #888;
 }
+
+
+.cart-summary {
+  position: fixed;
+  top: 10px;
+  right: 20px;
+  background-color: bisque;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  font-size: 16px;
+}
+
+.cart-summary.active {
+  display: block;
+}
+
+.cart-summary .cart-summary-item {
+  display: flex;
+  align-items: center;
+}
