@@ -4,12 +4,13 @@ import './css/CategoryFilter.css';
 function CategoryFilter({selectedCategories, setSelectedCategories}: {selectedCategories: string[], setSelectedCategories: (categories: string[]) => void}) {
 
     const [categories, setCategories] = useState<string[]>([]);
+    const API_URL = "https://mission13-liza-frontend-2-cahrheb9e9cpd9hw.eastus-01.azurewebsites.net/api/Book"
 
 
     useEffect(() => {
         const fetchCategories = async () => {
             try{
-                const response = await fetch('http://localhost:5196/api/Book/GetBookCategories');
+                const response = await fetch(`${API_URL}api/Book/GetBookCategories`);
                 const data = await response.json();
     
                 setCategories(data);
