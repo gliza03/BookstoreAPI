@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Homepage from './homepage'
 import CartPage from './cartPage';
 import { CartProvider } from './context/CartContext';
+import AdminBooksPage from './adminBooksPage';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -18,6 +19,7 @@ function App() {
             <Route path="/" element={<Homepage/>} />
             <Route path="/books" element={<Books selectedCategories={selectedCategories} />} />
             <Route path="/cart" element={<CartPage />} />
+            <Route path="/adminbooks" element={<AdminBooksPage />} />
           </Routes>
         </Router>
       </CartProvider>

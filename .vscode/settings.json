@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "undefined/subscriptions/c3f8bee0-ddbc-49d9-9c29-17dd443b8ce2/resourceGroups/appsvc_windows_eastus/providers/Microsoft.Web/sites/BookProject-Liza",
+    "appService.deploySubpath": "backend\\Mission11.API\\publish"
+}
