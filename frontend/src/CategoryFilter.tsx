@@ -10,7 +10,7 @@ function CategoryFilter({selectedCategories, setSelectedCategories}: {selectedCa
     useEffect(() => {
         const fetchCategories = async () => {
             try{
-                const response = await fetch(`${API_URL}api/Book/GetBookCategories`);
+                const response = await fetch(`${API_URL}/GetBookCategories`);
                 const data = await response.json();
     
                 setCategories(data);
