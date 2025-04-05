@@ -8,8 +8,7 @@ import { CartProvider } from './context/CartContext';
 import AdminBooksPage from './adminBooksPage';
 
 function App() {
-  const [count, setCount] = useState(0);
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedCategories] = useState<string[]>([]);
 
   return (
     <>
